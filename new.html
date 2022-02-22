@@ -1,0 +1,165 @@
+<DOCTYPE html>
+<html>
+<head>
+	<title>JS | Ecmas 6 class</title>
+</head>
+<body>
+		<div class="cardetail"></div>
+	<script type="text/javascript">
+	
+		// Ecmas 5 constructor
+		function Father(name){
+			this.name = name;
+		}
+		
+		let father = new Father('Khin Maung Myint');
+		console.log(father);
+		
+		// constructor with method
+		function Mother(name,age){
+			this.name = name;
+			this.age = age;
+			
+			this.getAge = () =>  this.age;
+		}
+		
+		let mom = new Mother('Thu Zar Win', 41);
+		console.log(mom);
+		console.log(mom.getAge());
+		
+		// Prototyping a method into a constructor
+		function Kids(name,age){
+			this.name = name;
+			this.age = age;
+		}
+		
+		Kids.prototype.getAge = function() {
+			return this.age;
+		};
+		
+		let kids = new Kids('Aung Khant', 18);
+		
+		console.log(kids.getAge());
+		
+		// Inheritance
+		function Car(model,year) {
+			this.model = model;
+			this.year = year;
+		}
+		
+		Car.prototype.getModel = function() {
+			return this.model;
+		}
+		
+		Car.prototype.getYear = function() {
+			return this.year;
+		}
+		
+		function Toyota(model,year,price){
+			Car.call(this,model,year);
+			this.price = price;
+		}
+		
+		Toyota.prototype = Object.create(Car.prototype);
+		
+		let ty = new Toyota('Toyota',2019,200000);
+		console.log(ty);
+		
+		console.log(ty.getModel());
+		console.log(ty.getYear());
+		
+		
+		// Inheritance using object
+		
+		// -- Method 1
+		const phoneproto = {
+			getName : function() {
+				return this.name;
+			},
+			
+			getModel : function() {
+				return this.model;
+			}
+		}
+		
+		const phone1 = Object.create(phoneproto);
+		phone1.name = 'iPhone';
+		phone1.model = '13';
+		
+		console.log(phone1.getName() + " : " + phone1.getModel());
+		
+		// -- Method 2
+		const phone2  = Object.create(phoneproto, {
+			name : {value : 'Samsung'},
+			model : {value : 'S22'}
+		});
+		
+		console.log(phone2.getName() + " : " + phone2.getModel());
+		
+		//------------------------------------------------------------------------------------------------------------//
+		
+		// Ecmas 6 (classes)
+		
+		class University {
+			name = "Anderi";
+			getTutor() {
+				return this.name;
+			}
+		}
+		
+		let tutor = new University();
+		console.log(tutor);
+		
+		class Games {
+			constructor(name,price) {
+				this.name = name ;
+				this.price = price;
+			}
+			
+			getGame() {
+				return this.name + " : " + this.price;
+			}
+		}
+		
+		let game = new Games('Valorant', 0);
+		console.log(game);
+		
+		// Ecmas 6 inheritance
+		// reuse Games
+		class Dota extends Games {
+			constructor(name,price,version) {
+				super(name,price);
+				this.version = version;
+			}
+			
+			getVersion() {
+				return this.name + " " + this.version;
+			}
+		}
+		
+		let dota = new Dota('Dota', 0, 2);
+		console.log(dota);
+		console.log(dota.getGame());
+		console.log(dota.getVersion());
+		
+		// static classes
+		class Earphone {
+			static name = 'w22';
+			static version = 3;
+	
+			static getName() {
+				console.log(this.name);
+			}
+			static getVersion() {
+				console.log(this.version);
+			}
+		}
+		
+		Earphone.getName();
+		Earphone.getVersion();
+		
+		
+	
+	</script>
+</body>
+</html>
